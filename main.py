@@ -67,7 +67,11 @@ def plot_and_save_data(sf):
     plt.savefig('scatter_plot.png')
 
     # Создание карты с метками инцидентов
-    color_dict = dict(zip(pd_districts, list(colors.cnames.values())[0:len(pd_districts)]))
+    contrast_colors = ['#FF0000', '#0000FF', '#00FF00', '#FFFF00', '#FF00FF', '#00FFFF', '#000000', '#FFFFFF',
+                       '#FFA500', '#800080']
+    pd_districts = np.unique(sf['PdDistrict'])
+    color_dict = dict(zip(pd_districts, contrast_colors[:len(pd_districts)]))
+    # color_dict = dict(zip(pd_districts, list(colors.cnames.values())[0:len(pd_districts)]))
     map_osm = folium.Map(location=[sf['Y'].mean(), sf['X'].mean()], zoom_start=12)
     plot_every = 50
     for el in list(zip(sf['Y'], sf['X'], sf['PdDistrict']))[0::plot_every]:
